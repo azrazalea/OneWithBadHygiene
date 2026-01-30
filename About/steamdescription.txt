@@ -5,10 +5,10 @@ Compatibility patch between One With Death and Dubs Bad Hygiene.
 [*] Undead are exempt from hygiene, bladder, and thirst needs (they're dead)
 [*] Necromancers with FamiliarWithDeath or OneWithDeath are exempt from bladder and thirst
 [*] OneWithDeath necromancers are also exempt from hygiene
-[*] Adds hygiene decay rate modifiers for necromancer progression stages
+[*] Adds hygiene decay rate modifiers for necromancer progression stages until exempt (stench of death)
 [/list]
 
-This patch works with DBH's "Override Need Definitions" setting enabled.
+This patch works regardless of DBH's "Override Need Definitions" setting being enabled.
 
 [h1]Debug Actions[/h1]
 Also includes debug actions for testing necromancy states (merged into OWD's debug menu):
