@@ -1,0 +1,87 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>OneWithBadHygiene</AssemblyName>
+    <RootNamespace>OneWithBadHygiene</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+
+    <!-- Output directly to mod folder -->
+    <OutputPath>../1.6/Assemblies/</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+
+    <!-- Debug symbols -->
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+
+    <!-- Enable post-build events -->
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- RimWorld installation path - UPDATE THIS if needed -->
+    <RimWorldPath Condition="'$(RimWorldPath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldPath>
+    <ModName>One With Bad Hygiene</ModName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- RimWorld Core References -->
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldPath)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RimWorldPath)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Harmony -->
+    <PackageReference Include="Lib.Harmony" Version="2.3.3" ExcludeAssets="runtime" />
+
+    <!-- Dubs Bad Hygiene Reference -->
+    <Reference Include="BadHygiene">
+      <HintPath>..\..\Dubs-Bad-Hygiene\1.6\Assemblies\BadHygiene.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- One With Death Reference -->
+    <Reference Include="Necromancy">
+      <HintPath>C:\program files (x86)\steam\steamapps\workshop\content\294100\3448902635\1.6\Assemblies\Necromancy.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Post-build deployment -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Message Text="Deploying One With Bad Hygiene to RimWorld..." Importance="high" />
+
+    <!-- Remove existing mod from RimWorld if it exists -->
+    <RemoveDir Directories="$(RimWorldPath)\Mods\$(ModName)" Condition="Exists('$(RimWorldPath)\Mods\$(ModName)')" />
+
+    <!-- Define what to copy -->
+    <ItemGroup>
+      <!-- Source folder (excluding obj and bin) -->
+      <SourceFiles Include="$(MSBuildProjectDirectory)\**\*.*"
+                   Exclude="$(MSBuildProjectDirectory)\obj\**\*.*;$(MSBuildProjectDirectory)\bin\**\*.*" />
+
+      <!-- 1.6 folder -->
+      <SixteenFiles Include="$(MSBuildProjectDirectory)\..\1.6\**\*.*" />
+
+      <!-- About folder -->
+      <AboutFiles Include="$(MSBuildProjectDirectory)\..\About\**\*.*" />
+
+      <!-- Root files -->
+      <RootFiles Include="$(MSBuildProjectDirectory)\..\LoadFolders.xml" />
+    </ItemGroup>
+
+    <!-- Copy all defined files -->
+    <Copy SourceFiles="@(SourceFiles)" DestinationFiles="@(SourceFiles->'$(RimWorldPath)\Mods\$(ModName)\Source\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(SixteenFiles)" DestinationFiles="@(SixteenFiles->'$(RimWorldPath)\Mods\$(ModName)\1.6\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(AboutFiles)" DestinationFiles="@(AboutFiles->'$(RimWorldPath)\Mods\$(ModName)\About\%(RecursiveDir)%(Filename)%(Extension)')" />
+    <Copy SourceFiles="@(RootFiles)" DestinationFiles="@(RootFiles->'$(RimWorldPath)\Mods\$(ModName)\%(Filename)%(Extension)')" />
+
+    <Message Text="One With Bad Hygiene deployed successfully to $(RimWorldPath)\Mods\$(ModName)" Importance="high" />
+  </Target>
+</Project>

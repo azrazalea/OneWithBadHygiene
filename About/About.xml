@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+    <name>One With Death - Dubs Bad Hygiene Patch</name>
+    <author>azrazalea</author>
+    <packageId>azrazalea.owd.dbh.patch</packageId>
+    <description>Compatibility patch between One With Death and Dubs Bad Hygiene.
+
+Effects:
+- Undead are exempt from hygiene, bladder, and thirst needs (they're dead)
+- Necromancers with FamiliarWithDeath or OneWithDeath are exempt from bladder and thirst
+- OneWithDeath necromancers are also exempt from hygiene
+
+This patch works with DBH's "Override Need Definitions" setting enabled.
+
+Load after both One With Death and Dubs Bad Hygiene.</description>
+    <supportedVersions>
+        <li>1.5</li>
+        <li>1.6</li>
+    </supportedVersions>
+    <modDependencies>
+        <li>
+            <packageId>brrainz.harmony</packageId>
+            <displayName>Harmony</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+            <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+        </li>
+        <li>
+            <packageId>Dubwise.DubsBadHygiene</packageId>
+            <displayName>Dubs Bad Hygiene</displayName>
+            <steamWorkshopUrl>steam://url/CommunityFilePage/836308268</steamWorkshopUrl>
+            <downloadUrl>https://github.com/Dubwise56/Dubs-Bad-Hygiene</downloadUrl>
+        </li>
+        <li>
+            <packageId>6224Y.OneWithDeath</packageId>
+            <displayName>One With Death</displayName>
+        </li>
+    </modDependencies>
+    <loadAfter>
+        <li>brrainz.harmony</li>
+        <li>Dubwise.DubsBadHygiene</li>
+        <li>6224Y.OneWithDeath</li>
+    </loadAfter>
+</ModMetaData>

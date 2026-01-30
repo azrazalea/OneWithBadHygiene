@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <!-- ==================== UNFAMILIAR WITH DEATH ==================== -->
+    <!-- Just beginning - slight hygiene neglect (+15% decay) -->
+    <!-- UnfamiliarWithDeath doesn't have statOffsets, so we create it -->
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/HediffDef[defName="UnfamiliarWithDeath"]/stages/li</xpath>
+        <value>
+            <statOffsets>
+                <HygieneRateMultiplier>0.15</HygieneRateMultiplier>
+            </statOffsets>
+        </value>
+    </Operation>
+
+    <!-- ==================== FAMILIAR WITH DEATH ==================== -->
+    <!-- Deeper transformation - hygiene decays faster (+25%) before exemption at OneWithDeath -->
+    <!-- FamiliarWithDeath doesn't have statOffsets, so we create it -->
+
+    <Operation Class="PatchOperationAdd">
+        <xpath>Defs/HediffDef[defName="FamiliarWithDeath"]/stages/li</xpath>
+        <value>
+            <statOffsets>
+                <HygieneRateMultiplier>0.25</HygieneRateMultiplier>
+            </statOffsets>
+        </value>
+    </Operation>
+</Patch>

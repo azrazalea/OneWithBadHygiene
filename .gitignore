@@ -1,0 +1,41 @@
+# Build outputs (but keep final mod DLLs)
+Source/bin/
+Source/obj/
+Source/packages/
+*.cache
+*.tmp
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+.idea/
+.claude/settings.local.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# RimWorld specific
+# Keep the final DLLs in Assemblies folders - these are the distributed mod files
+# Source build artifacts are ignored above
+
+# Documentation drafts
+*.draft.md
