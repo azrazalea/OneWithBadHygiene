@@ -14,7 +14,6 @@ This patch works with DBH's "Override Need Definitions" setting enabled.
 Also includes debug actions for testing necromancy states (merged into OWD's debug menu).</description>
     <author>azrazalea</author>
     <supportedVersions>
-        <li>1.5</li>
         <li>1.6</li>
     </supportedVersions>
     <packageId>azrazalea.owd.dbh.patch</packageId>
