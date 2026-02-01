@@ -37,10 +37,10 @@ namespace OneWithBadHygiene
         };
 
         // Necromancer transformation hediffs - exempt from bladder and thirst
+        // Only OneWithDeath is fully exempt; FamiliarWithDeath has reduced decay via XML patches
         private static readonly List<string> NecromancerHediffs = new List<string>
         {
-            "OneWithDeath",
-            "FamiliarWithDeath"
+            "OneWithDeath"
         };
 
         // Hygiene exempt hediffs (undead + OneWithDeath only, not FamiliarWithDeath)
