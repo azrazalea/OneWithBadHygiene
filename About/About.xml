@@ -9,6 +9,14 @@ Effects:
 - OneWithDeath necromancers are also exempt from hygiene
 - Adds hygiene decay rate modifiers for necromancer progression stages
 
+Optional Enhancement (Settings Menu - requires game restart):
+- Enable "Necromancer Progression Effects" for gradual stat/need changes through progression stages
+- Matches lore descriptions (UnfamiliarWithDeath now actually reduces hunger/rest)
+- Gradual power scaling: pain resistance, toxic immunity, temperature tolerance, etc.
+- DBH integration: hygiene decays faster, bladder/thirst fade with other biological needs
+- Accelerated aging: body decays faster as it embraces death (10% -> 20% -> 40% -> disabled as lich)
+- Setting is OFF by default; changing it requires restarting RimWorld
+
 This patch works with DBH's "Override Need Definitions" setting enabled.
 
 Also includes debug actions for testing necromancy states (merged into OWD's debug menu).</description>
@@ -18,6 +26,12 @@ Also includes debug actions for testing necromancy states (merged into OWD's deb
     </supportedVersions>
     <packageId>azrazalea.owd.dbh.patch</packageId>
     <modDependencies>
+        <li>
+            <packageId>imranfish.xmlextensions</packageId>
+            <displayName>XML Extensions</displayName>
+            <downloadUrl>https://github.com/15adhami/XmlExtensions/releases</downloadUrl>
+            <steamWorkshopUrl>https://steamcommunity.com/workshop/filedetails/?id=2574315206</steamWorkshopUrl>
+        </li>
         <li>
             <packageId>brrainz.harmony</packageId>
             <displayName>Harmony</displayName>
@@ -38,6 +52,7 @@ Also includes debug actions for testing necromancy states (merged into OWD's deb
     </modDependencies>
     <loadAfter>
         <li>Ludeon.RimWorld</li>
+        <li>imranfish.xmlextensions</li>
         <li>brrainz.harmony</li>
         <li>Dubwise.DubsBadHygiene</li>
         <li>6224Y.OneWithDeath</li>

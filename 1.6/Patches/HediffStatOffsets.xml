@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-    <!-- ==================== UNFAMILIAR WITH DEATH ==================== -->
-    <!-- Just beginning - slight hygiene neglect (+15% decay) -->
-    <!-- UnfamiliarWithDeath doesn't have statOffsets, so we create it -->
+    <!--
+    Default hygiene rate modifiers for necromancer progression.
+    Only applied when "Enable Necromancer Progression Effects" is OFF (default).
+    When the setting is ON, NecromancerProgressionStats.xml provides more comprehensive effects.
+    -->
 
-    <Operation Class="PatchOperationAdd">
-        <xpath>Defs/HediffDef[defName="UnfamiliarWithDeath"]/stages/li</xpath>
-        <value>
-            <statOffsets>
-                <HygieneRateMultiplier>0.15</HygieneRateMultiplier>
-            </statOffsets>
-        </value>
-    </Operation>
+    <Operation Class="XmlExtensions.OptionalPatch">
+        <modId>azrazalea.owd.dbh.patch</modId>
+        <key>enableProgressionEffects</key>
+        <defaultValue>false</defaultValue>
+        <caseFalse>
+            <!-- ==================== UNFAMILIAR WITH DEATH ==================== -->
+            <!-- Just beginning - slight hygiene neglect (+15% decay) -->
+            <!-- UnfamiliarWithDeath doesn't have statOffsets, so we create it -->
 
-    <!-- ==================== FAMILIAR WITH DEATH ==================== -->
-    <!-- Deeper transformation - hygiene decays faster (+25%) before exemption at OneWithDeath -->
-    <!-- FamiliarWithDeath doesn't have statOffsets, so we create it -->
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="UnfamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <statOffsets>
+                        <HygieneRateMultiplier>0.15</HygieneRateMultiplier>
+                    </statOffsets>
+                </value>
+            </Operation>
 
-    <Operation Class="PatchOperationAdd">
-        <xpath>Defs/HediffDef[defName="FamiliarWithDeath"]/stages/li</xpath>
-        <value>
-            <statOffsets>
-                <HygieneRateMultiplier>0.25</HygieneRateMultiplier>
-            </statOffsets>
-        </value>
+            <!-- ==================== FAMILIAR WITH DEATH ==================== -->
+            <!-- Deeper transformation - hygiene decays faster (+25%) before exemption at OneWithDeath -->
+            <!-- FamiliarWithDeath doesn't have statOffsets, so we create it -->
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="FamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <statOffsets>
+                        <HygieneRateMultiplier>0.25</HygieneRateMultiplier>
+                    </statOffsets>
+                </value>
+            </Operation>
+        </caseFalse>
     </Operation>
 </Patch>

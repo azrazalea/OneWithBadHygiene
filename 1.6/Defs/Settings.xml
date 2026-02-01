@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+    <XmlExtensions.SettingsMenuDef>
+        <defName>OneWithBadHygieneSettings</defName>
+        <modId>azrazalea.owd.dbh.patch</modId>
+        <label>One With Bad Hygiene</label>
+        <settings>
+            <li Class="XmlExtensions.Setting.Text">
+                <text>Necromancer Progression Enhancement</text>
+                <anchor>Middle</anchor>
+                <font>Medium</font>
+            </li>
+            <li Class="XmlExtensions.Setting.Checkbox">
+                <key>enableProgressionEffects</key>
+                <label>Enable Necromancer Progression Effects</label>
+                <tooltip>Gradually apply stat bonuses and need modifiers as necromancers progress through stages. This matches the lore descriptions - UnfamiliarWithDeath will actually reduce hunger/rest as its description claims.
+
+Effects include:
+- Gradual pain resistance (5% -> 15% -> 25% -> immune)
+- Increasing toxic resistance
+- Temperature tolerance expansion
+- Consciousness and learning boosts
+- Psychic sensitivity increase
+- Movement and melee improvements
+- Reduced rest/food decay (vanilla needs)
+- Reduced bladder/thirst decay (DBH needs)
+- Increased hygiene decay (stench of death)
+- Accelerated aging (10% -> 20% -> 40% -> disabled)
+  The body decays faster as it embraces death, until aging becomes irrelevant.
+
+Requires game restart to take effect.</tooltip>
+                <defaultValue>false</defaultValue>
+            </li>
+            <li Class="XmlExtensions.Setting.GapLine" />
+            <li Class="XmlExtensions.Setting.Text">
+                <text>Note: Changes require game restart</text>
+                <anchor>Middle</anchor>
+                <font>Small</font>
+            </li>
+            <li Class="XmlExtensions.Setting.ResetSettings" />
+        </settings>
+    </XmlExtensions.SettingsMenuDef>
+</Defs>

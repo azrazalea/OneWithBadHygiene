@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <!--
+    Necromancer Progression Enhancement
+    When enableProgressionEffects is TRUE, apply gradual stat/need changes through progression stages.
+
+    IMPORTANT: NecromancerImplant is ALWAYS present with progression hediffs.
+    statOffsets are ADDITIVE, factors (painFactor, etc.) are MULTIPLICATIVE.
+
+    Target totals (Necromancer alone > with Unfamiliar > with Familiar > OneWithDeath):
+    Pain Factor:       0.95 > 0.85 > 0.75 > 0 (base mod)
+    Toxic Resistance:  +0.1 > +0.2 > +0.35 > +1.0 (base)
+    Temp Min:          5 > 15 > 30 > 200 (base)
+    Temp Max:          +5 > +15 > +30 > +100 (base)
+    Consciousness:     +5% > +10% > +15% > +20% (base)
+    Learning Factor:   +5% > +10% > +15% > +25% (base)
+    Psychic Sens:      +20% > +50% > +100% > +200% (base)
+    Move Speed:        0 > +0.05 > +0.15 > +0.25 (base)
+    Melee Cooldown:    0 > 0.1 > 0.3 > 0.5 (base)
+    Rest factor:       0.95 > 0.85 > Exempt > Exempt
+    Hunger factor:     0.95 > 0.85 > Exempt > Exempt
+    Hygiene (DBH):     +5% > +15% > +30% > Exempt
+    Bladder (DBH):     5% > 15% > 30% > Exempt
+    Thirst (DBH):      5% > 15% > 30% > Exempt
+    Aging Rate:        1.1x > 1.2x > 1.4x > Disabled (via C# patch)
+    -->
+
+    <Operation Class="XmlExtensions.OptionalPatch">
+        <modId>azrazalea.owd.dbh.patch</modId>
+        <key>enableProgressionEffects</key>
+        <defaultValue>false</defaultValue>
+        <caseTrue>
+            <!-- NECROMANCER IMPLANT -->
+            <!-- Base values that all necromancers get -->
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="NecromancerImplant"]/stages/li/statOffsets</xpath>
+                <value>
+                    <ToxicResistance>0.1</ToxicResistance>
+                    <ComfyTemperatureMin>-5</ComfyTemperatureMin>
+                    <ComfyTemperatureMax>5</ComfyTemperatureMax>
+                    <GlobalLearningFactor>0.05</GlobalLearningFactor>
+                    <PsychicSensitivity>0.2</PsychicSensitivity>
+                    <HygieneRateMultiplier>0.05</HygieneRateMultiplier>
+                    <BladderRateMultiplier>-0.05</BladderRateMultiplier>
+                    <ThirstRateMultiplier>-0.05</ThirstRateMultiplier>
+                </value>
+            </Operation>
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="NecromancerImplant"]/stages/li</xpath>
+                <value>
+                    <capMods>
+                        <li>
+                            <capacity>Consciousness</capacity>
+                            <offset>0.05</offset>
+                        </li>
+                    </capMods>
+                </value>
+            </Operation>
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="NecromancerImplant"]/stages/li</xpath>
+                <value>
+                    <painFactor>0.95</painFactor>
+                    <restFallFactor>0.95</restFallFactor>
+                    <hungerRateFactor>0.95</hungerRateFactor>
+                </value>
+            </Operation>
+
+            <!-- UNFAMILIAR WITH DEATH -->
+            <!-- Additive stats: add difference to reach target -->
+            <!-- Multiplicative factors: 0.895 * 0.95 = 0.85 target -->
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="UnfamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <statOffsets>
+                        <ToxicResistance>0.1</ToxicResistance>
+                        <ComfyTemperatureMin>-10</ComfyTemperatureMin>
+                        <ComfyTemperatureMax>10</ComfyTemperatureMax>
+                        <GlobalLearningFactor>0.05</GlobalLearningFactor>
+                        <PsychicSensitivity>0.3</PsychicSensitivity>
+                        <MoveSpeed>0.05</MoveSpeed>
+                        <MeleeCooldownFactor>-0.1</MeleeCooldownFactor>
+                        <HygieneRateMultiplier>0.1</HygieneRateMultiplier>
+                        <BladderRateMultiplier>-0.1</BladderRateMultiplier>
+                        <ThirstRateMultiplier>-0.1</ThirstRateMultiplier>
+                    </statOffsets>
+                </value>
+            </Operation>
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="UnfamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <capMods>
+                        <li>
+                            <capacity>Consciousness</capacity>
+                            <offset>0.05</offset>
+                        </li>
+                    </capMods>
+                </value>
+            </Operation>
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="UnfamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <painFactor>0.895</painFactor>
+                    <restFallFactor>0.895</restFallFactor>
+                    <hungerRateFactor>0.895</hungerRateFactor>
+                </value>
+            </Operation>
+
+            <!-- FAMILIAR WITH DEATH -->
+            <!-- Additive stats: add difference to reach target -->
+            <!-- Multiplicative factors: 0.789 * 0.95 = 0.75 target -->
+            <!-- Note: Rest/Food are already disabled by base mod at this stage -->
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="FamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <statOffsets>
+                        <ToxicResistance>0.25</ToxicResistance>
+                        <ComfyTemperatureMin>-25</ComfyTemperatureMin>
+                        <ComfyTemperatureMax>25</ComfyTemperatureMax>
+                        <GlobalLearningFactor>0.1</GlobalLearningFactor>
+                        <PsychicSensitivity>0.8</PsychicSensitivity>
+                        <MoveSpeed>0.15</MoveSpeed>
+                        <MeleeCooldownFactor>-0.3</MeleeCooldownFactor>
+                        <HygieneRateMultiplier>0.25</HygieneRateMultiplier>
+                        <BladderRateMultiplier>-0.25</BladderRateMultiplier>
+                        <ThirstRateMultiplier>-0.25</ThirstRateMultiplier>
+                    </statOffsets>
+                </value>
+            </Operation>
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="FamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <capMods>
+                        <li>
+                            <capacity>Consciousness</capacity>
+                            <offset>0.1</offset>
+                        </li>
+                    </capMods>
+                </value>
+            </Operation>
+
+            <Operation Class="PatchOperationAdd">
+                <xpath>Defs/HediffDef[defName="FamiliarWithDeath"]/stages/li</xpath>
+                <value>
+                    <painFactor>0.789</painFactor>
+                </value>
+            </Operation>
+
+            <!-- ONE WITH DEATH: already has full stats in base mod -->
+        </caseTrue>
+    </Operation>
+</Patch>

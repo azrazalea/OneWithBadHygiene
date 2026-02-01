@@ -51,6 +51,12 @@
       <HintPath>C:\program files (x86)\steam\steamapps\workshop\content\294100\3448902635\1.6\Assemblies\Necromancy.dll</HintPath>
       <Private>False</Private>
     </Reference>
+
+    <!-- XmlExtensions Reference -->
+    <Reference Include="XmlExtensions">
+      <HintPath>..\..\XML Extensions\1.6\Assemblies\XmlExtensions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
 
   <!-- Post-build deployment -->

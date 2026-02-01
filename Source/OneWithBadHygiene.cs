@@ -1,10 +1,28 @@
 using System.Collections.Generic;
+using System.Linq;
 using HarmonyLib;
 using Verse;
 using DubsBadHygiene;
+using XmlExtensions;
 
 namespace OneWithBadHygiene
 {
+    /// <summary>
+    /// Settings for One With Bad Hygiene mod
+    /// </summary>
+    public static class OWBHSettings
+    {
+        private const string ModId = "azrazalea.owd.dbh.patch";
+
+        public static bool EnableProgressionEffects { get; private set; }
+
+        public static void LoadSettings()
+        {
+            string setting = SettingsManager.GetSetting(ModId, "enableProgressionEffects");
+            EnableProgressionEffects = !string.IsNullOrEmpty(setting) && bool.TryParse(setting, out bool result) && result;
+        }
+    }
+
     [StaticConstructorOnStartup]
     public static class OneWithBadHygienePatcher
     {
@@ -39,13 +57,15 @@ namespace OneWithBadHygiene
 
         static OneWithBadHygienePatcher()
         {
+            OWBHSettings.LoadSettings();
+
             var harmony = new Harmony("azrazalea.owd.dbh.patch");
             harmony.PatchAll();
 
             // Inject exemptions into DBH settings
             InjectExemptions();
 
-            Log.Message("[OneWithBadHygiene] Patched DBH exemptions for One With Death undead and necromancers.");
+            Log.Message($"[OneWithBadHygiene] Patched DBH exemptions for One With Death. Progression effects: {OWBHSettings.EnableProgressionEffects}");
         }
 
         private static void InjectExemptions()
@@ -88,6 +108,43 @@ namespace OneWithBadHygiene
                 {
                     settings.HygieneHediff.Add(hediff);
                 }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Patch to increase aging rate for necromancers as they progress toward undeath.
+    /// OneWithDeath disables aging via MutantDef, but the earlier stages accelerate decay.
+    /// </summary>
+    [HarmonyPatch(typeof(Pawn_AgeTracker), "BiologicalTicksPerTick", MethodType.Getter)]
+    public static class Pawn_AgeTracker_BiologicalTicksPerTick_Patch
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Pawn ___pawn, ref float __result)
+        {
+            // Only apply if progression effects are enabled
+            if (!OWBHSettings.EnableProgressionEffects)
+                return;
+
+            if (___pawn?.health?.hediffSet == null)
+                return;
+
+            var hediffSet = ___pawn.health.hediffSet;
+
+            // Check in order of severity (most severe first)
+            // OneWithDeath is handled by MutantDef disableAging, so we skip it
+
+            if (hediffSet.hediffs.Any(h => h.def.defName == "FamiliarWithDeath"))
+            {
+                __result *= 1.4f; // 40% faster aging
+            }
+            else if (hediffSet.hediffs.Any(h => h.def.defName == "UnfamiliarWithDeath"))
+            {
+                __result *= 1.2f; // 20% faster aging
+            }
+            else if (hediffSet.hediffs.Any(h => h.def.defName == "NecromancerImplant"))
+            {
+                __result *= 1.1f; // 10% faster aging
             }
         }
     }

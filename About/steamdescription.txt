@@ -10,6 +10,18 @@ Compatibility patch between One With Death and Dubs Bad Hygiene.
 
 This patch works regardless of DBH's "Override Need Definitions" setting being enabled.
 
+[h1]Optional Enhancement (Settings Menu)[/h1]
+Enable "Necromancer Progression Effects" for a more immersive experience:
+[list]
+[*] Gradual stat/need changes through progression stages
+[*] Matches lore descriptions (UnfamiliarWithDeath now actually reduces hunger/rest as stated)
+[*] Pain resistance, toxic immunity, temperature tolerance, consciousness, learning, psychic sensitivity
+[*] Movement speed and melee improvements at higher stages
+[*] DBH integration: hygiene decays faster, bladder/thirst fade with other biological needs
+[*] Accelerated aging: body decays faster as it embraces death (10% → 20% → 40% → disabled as lich)
+[/list]
+[b]Note:[/b] This setting is OFF by default. Changing it requires restarting RimWorld (XML-based patches).
+
 [h1]Debug Actions[/h1]
 Also includes debug actions for testing necromancy states (merged into OWD's debug menu):
 [list]
@@ -21,6 +33,7 @@ Also includes debug actions for testing necromancy states (merged into OWD's deb
 
 [h1]Requirements[/h1]
 [list]
+[*] [url=https://steamcommunity.com/workshop/filedetails/?id=2574315206]XML Extensions[/url]
 [*] [url=https://steamcommunity.com/workshop/filedetails/?id=2009463077]Harmony[/url]
 [*] [url=https://steamcommunity.com/workshop/filedetails/?id=836308268]Dubs Bad Hygiene[/url]
 [*] [url=https://steamcommunity.com/workshop/filedetails/?id=3448902635]One With Death[/url]
