@@ -18,6 +18,7 @@ Enable "Necromancer Progression Effects" for a more immersive experience:
 [*] Pain resistance, toxic immunity, temperature tolerance, consciousness, learning, psychic sensitivity
 [*] Movement speed and melee improvements at higher stages
 [*] DBH integration: hygiene decays faster, bladder/thirst fade with other biological needs
+[*] Bladder/thirst are not completely disabled until One with Death in this mode.
 [*] Accelerated aging: body decays faster as it embraces death (10% → 20% → 40% → disabled as lich)
 [/list]
 [b]Note:[/b] This setting is OFF by default. Changing it requires restarting RimWorld (XML-based patches).

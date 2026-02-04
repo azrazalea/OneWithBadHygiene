@@ -36,8 +36,8 @@ namespace OneWithBadHygiene
             "OWD_Hediff_LesserUndead"
         };
 
-        // Necromancer transformation hediffs - exempt from bladder and thirst
-        // Only OneWithDeath is fully exempt; FamiliarWithDeath has reduced decay via XML patches
+        // Necromancer transformation hediffs - always exempt from bladder and thirst
+        // FamiliarWithDeath exemption is conditional: added at runtime only when progression is OFF
         private static readonly List<string> NecromancerHediffs = new List<string>
         {
             "OneWithDeath"
@@ -98,6 +98,16 @@ namespace OneWithBadHygiene
                 if (!settings.BladderHediff.Contains(hediff))
                 {
                     settings.BladderHediff.Add(hediff);
+                }
+            }
+
+            // When progression effects are OFF, FamiliarWithDeath gets full bladder/thirst exemption
+            // When ON, it gets gradual reduction via XML patches instead
+            if (!OWBHSettings.EnableProgressionEffects)
+            {
+                if (!settings.BladderHediff.Contains("FamiliarWithDeath"))
+                {
+                    settings.BladderHediff.Add("FamiliarWithDeath");
                 }
             }
 
